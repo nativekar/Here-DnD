@@ -1,57 +1,95 @@
-import React, { PureComponent } from "react";
-
-class FileUpload extends PureComponent {
+import React, { Component } from "react";
+class FileUpload extends Component {
   state = {
-    file: [],
+    drag: false,
   };
-
-  uploadFile = () => {
-    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-      const dropZoneElement = inputElement.closest(".drop-zone");
-      dropZoneElement.addEventListener("click", (e) => {
-        inputElement.click();
-      });
-      inputElement.addEventListener("change", (e) => {
-        if (inputElement.files.length) {
-          //   updateThumbnail(dropZoneElement, inputElement.files[0]);
-        }
-      });
-      dropZoneElement.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZoneElement.classList.add("drop-zone--over");
-      });
-
-      ["dragleave", "dragend"].forEach((type) => {
-        dropZoneElement.addEventListener(type, (e) => {
-          dropZoneElement.classList.remove("drop-zone--over");
-        });
-      });
-
-      dropZoneElement.addEventListener("drop", (e) => {
-        e.preventDefault();
-
-        if (e.dataTransfer.files.length) {
-          inputElement.files = e.dataTransfer.files;
-          //   updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-        }
-
-        dropZoneElement.classList.remove("drop-zone--over");
-      });
-    });
+  dropRef = React.createRef();
+  handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
-
+  handleDragIn = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.dragCounter++;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+      this.setState({ drag: true });
+    }
+  };
+  handleDragOut = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.dragCounter--;
+    if (this.dragCounter === 0) {
+      this.setState({ drag: false });
+    }
+  };
+  handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({ drag: false });
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      this.props.handleDrop(e.dataTransfer.files);
+      e.dataTransfer.clearData();
+      this.dragCounter = 0;
+    }
+  };
+  componentDidMount() {
+    let div = this.dropRef.current;
+    div.addEventListener("dragenter", this.handleDragIn);
+    div.addEventListener("dragleave", this.handleDragOut);
+    div.addEventListener("dragover", this.handleDrag);
+    div.addEventListener("drop", this.handleDrop);
+  }
+  componentWillUnmount() {
+    let div = this.dropRef.current;
+    div.removeEventListener("dragenter", this.handleDragIn);
+    div.removeEventListener("dragleave", this.handleDragOut);
+    div.removeEventListener("dragover", this.handleDrag);
+    div.removeEventListener("drop", this.handleDrop);
+  }
   render() {
     return (
-      <div className="file-upload">
-        <div className="drop-zone">
-          <span className="drop-zone__prompt">
-            Drop file here or click to upload
-          </span>
-          <input type="file" name="myFile" className="drop-zone__input" />
-        </div>
+      <div
+        style={{
+          height: "100%",
+          width: "50%",
+          position: "relative",
+          backgroundColor: "#ccc",
+        }}
+        ref={this.dropRef}
+      >
+        {this.state.dragging && (
+          <div
+            style={{
+              border: "dashed grey 4px",
+              backgroundColor: "rgba(255,255,255,.8)",
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              zIndex: 9999,
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: 0,
+                left: 0,
+                textAlign: "center",
+                color: "grey",
+                fontSize: 36,
+              }}
+            >
+              <div>drop here :)</div>
+            </div>
+          </div>
+        )}
+        {this.props.children}
       </div>
     );
   }
 }
-
 export default FileUpload;
