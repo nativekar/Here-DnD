@@ -1,7 +1,11 @@
+import React, { useState } from "react";
 import "./App.css";
 import FileUpload from "./Components/FileUpload/FileUpload";
+import LocationsList from "./Components/LocationsList/LocationsList";
 
 function App() {
+  const [locations, setLocations] = useState([]);
+
   const handleDrop = (files) => {
     var reader = new FileReader();
     reader.onload = onReaderLoad;
@@ -16,16 +20,30 @@ function App() {
     // Generate a new API KEY. This KEY is expired.
     const url = `https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?apiKey=${key}`;
 
-    arr.forEach((item) => {
-      fetch(
+    let placesData = [];
+
+    arr.forEach(async (item) => {
+      await fetch(
         `${url}&mode=retrieveAddresses&prox=${item.Latitude},${item.Longitude}`
       )
         .then((response) => response.json())
-        .then((responseData) => {
-          console.log(responseData);
+        .then((res) => {
+          if (!res.error) {
+            const address = res?.Response?.View[0]?.Result[0]?.Address?.Label;
+            placesData.push({
+              ...item,
+              address,
+            });
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          placesData.push({ err });
+        });
     });
+
+    console.log("placesData", placesData);
+    setLocations(placesData);
   };
 
   return (
@@ -35,6 +53,7 @@ function App() {
           <label>Places</label>
         </div>
       </FileUpload>
+      <LocationsList locations={locations} />
     </div>
   );
 }
