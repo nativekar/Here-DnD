@@ -4,26 +4,30 @@ class FileUpload extends Component {
     drag: false,
   };
   dropRef = React.createRef();
+
   handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
+
   handleDragIn = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.dragCounter++;
-    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      this.setState({ drag: true });
-    }
+    // this.dragCounter++;
+    // if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+    //   this.setState({ drag: true });
+    // }
   };
+
   handleDragOut = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.dragCounter--;
-    if (this.dragCounter === 0) {
-      this.setState({ drag: false });
-    }
+    // this.dragCounter--;
+    // if (this.dragCounter === 0) {
+    //   this.setState({ drag: true });
+    // }
   };
+
   handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -34,6 +38,7 @@ class FileUpload extends Component {
       this.dragCounter = 0;
     }
   };
+
   componentDidMount() {
     let div = this.dropRef.current;
     div.addEventListener("dragenter", this.handleDragIn);
@@ -41,6 +46,7 @@ class FileUpload extends Component {
     div.addEventListener("dragover", this.handleDrag);
     div.addEventListener("drop", this.handleDrop);
   }
+
   componentWillUnmount() {
     let div = this.dropRef.current;
     div.removeEventListener("dragenter", this.handleDragIn);
@@ -48,46 +54,46 @@ class FileUpload extends Component {
     div.removeEventListener("dragover", this.handleDrag);
     div.removeEventListener("drop", this.handleDrop);
   }
+
   render() {
     return (
       <div
         style={{
-          height: "100%",
-          width: "50%",
+          margin: "15px 15px",
+          height: "35%",
+          width: "30%",
           position: "relative",
           backgroundColor: "#ccc",
         }}
         ref={this.dropRef}
       >
-        {this.state.dragging && (
+        <div
+          style={{
+            border: "dotted white 4px",
+            backgroundColor: "black",
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 9999,
+          }}
+        >
           <div
             style={{
-              border: "dashed grey 4px",
-              backgroundColor: "rgba(255,255,255,.8)",
               position: "absolute",
-              top: 0,
-              bottom: 0,
-              left: 0,
+              top: "50%",
               right: 0,
-              zIndex: 9999,
+              left: 0,
+              textAlign: "center",
+              color: "#fff",
+              fontSize: 36,
+              fontWeight: "bold",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                right: 0,
-                left: 0,
-                textAlign: "center",
-                color: "#fff",
-                fontSize: 36,
-              }}
-            >
-              <div>drop here :)</div>
-            </div>
+            <div>Drop File(s) here</div>
           </div>
-        )}
-        {this.props.children}
+        </div>
       </div>
     );
   }

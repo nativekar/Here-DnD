@@ -4,10 +4,10 @@ function LocationsList({ locations }) {
   return (
     <div
       style={{
-        height: "100%",
         width: "50%",
         position: "relative",
         overflowY: "auto",
+        color: "red",
       }}
     >
       {locations?.map((loc, index) => (
