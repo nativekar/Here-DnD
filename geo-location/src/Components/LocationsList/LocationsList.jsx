@@ -1,15 +1,9 @@
 import React from "react";
+import "../../App.css";
 
 function LocationsList({ locations }) {
   return (
-    <div
-      style={{
-        width: "50%",
-        position: "relative",
-        overflowY: "auto",
-        color: "red",
-      }}
-    >
+    <div className="address-area">
       {locations?.map((loc, index) => (
         <div key={loc.Name + index}>
           <label>Name: {loc.Name}</label>

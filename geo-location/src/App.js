@@ -70,11 +70,7 @@ function App() {
   return (
     <div className="App">
       <FileUpload handleDrop={handleDrop} />
-      <div className="dropContainer">
-        <div>
-          <LocationsList locations={locations} />
-        </div>
-      </div>
+      <LocationsList locations={locations} />
     </div>
   );
 }

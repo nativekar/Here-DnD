@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../App.css";
 class FileUpload extends Component {
   state = {
     drag: false,
@@ -57,40 +58,9 @@ class FileUpload extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          margin: "15px 15px",
-          height: "35%",
-          width: "30%",
-          position: "relative",
-          backgroundColor: "#ccc",
-        }}
-        ref={this.dropRef}
-      >
-        <div
-          style={{
-            border: "dotted white 4px",
-            backgroundColor: "black",
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 9999,
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: 0,
-              left: 0,
-              textAlign: "center",
-              color: "#fff",
-              fontSize: 36,
-              fontWeight: "bold",
-            }}
-          >
+      <div className="overlay-container" ref={this.dropRef}>
+        <div className="drop-area">
+          <div className="drop-area-text">
             <div>Drop File(s) here</div>
           </div>
         </div>
