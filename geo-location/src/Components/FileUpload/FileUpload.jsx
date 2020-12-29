@@ -79,7 +79,7 @@ class FileUpload extends Component {
                 right: 0,
                 left: 0,
                 textAlign: "center",
-                color: "grey",
+                color: "#fff",
                 fontSize: 36,
               }}
             >
