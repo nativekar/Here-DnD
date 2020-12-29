@@ -14,7 +14,6 @@ function App() {
 
   /* function* fetchData(arr, url) {
     let placesData = [];
-    yield;
     arr.forEach(async (item) => {
       await fetch(
         `${url}&mode=retrieveAddresses&prox=${item.Latitude},${item.Longitude}`
@@ -46,7 +45,7 @@ function App() {
     let placesData = [];
     arr.forEach(async (item) => {
       await fetch(
-        `${url}&mode=retrieveAddresses&prox=${item.Latitude},${item.Longitude}`
+        `${url}&mode=retrieveAddresses&prox=${item.Latitude},${item.Longitude}&limit=1`
       )
         .then((response) => response.json())
         .then((res) => {
@@ -71,7 +70,11 @@ function App() {
   return (
     <div className="App">
       <FileUpload handleDrop={handleDrop} />
-      <LocationsList locations={locations} />
+      <div className="dropContainer">
+        <div>
+          <LocationsList locations={locations} />
+        </div>
+      </div>
     </div>
   );
 }
