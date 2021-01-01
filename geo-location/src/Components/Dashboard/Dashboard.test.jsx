@@ -1,13 +1,13 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
-import App from "./App";
+import Dashboard from "./Dashboard";
 import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("App", () => {
+describe("Dashboard", () => {
   it("should render in default state", () => {
-    const wrapper = shallow(<App />);
+    const wrapper = shallow(<Dashboard />);
     expect(wrapper.exists()).toBe(true);
   });
 });

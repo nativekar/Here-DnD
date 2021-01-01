@@ -23,3 +23,9 @@ Executing the following command will run the test scripts and log errors, if any
 ## `npm test`
 
 Launches the test runner in the interactive watch mode.
+
+## Working example
+
+<picture>
+<img src= "./In-Action.gif" alt="demo-gif">
+</picture>

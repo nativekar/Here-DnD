@@ -14,19 +14,11 @@ class FileUpload extends Component {
   handleDragIn = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // this.dragCounter++;
-    // if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-    //   this.setState({ drag: true });
-    // }
   };
 
   handleDragOut = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // this.dragCounter--;
-    // if (this.dragCounter === 0) {
-    //   this.setState({ drag: true });
-    // }
   };
 
   handleDrop = (e) => {
@@ -61,7 +53,7 @@ class FileUpload extends Component {
       <div className="overlay-container" ref={this.dropRef}>
         <div className="drop-area">
           <div className="drop-area-text">
-            <div>Drop File(s) here</div>
+            <div>Drop File here</div>
           </div>
         </div>
       </div>
