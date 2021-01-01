@@ -1,7 +1,7 @@
 import React from "react";
 import "../../App.css";
 
-function LocationsList({ locations }) {
+const LocationsList = ({ locations }) => {
   return (
     <div className="address-area">
       {locations?.map((loc, index) => (
@@ -13,6 +13,6 @@ function LocationsList({ locations }) {
       ))}
     </div>
   );
-}
+};
 
 export default LocationsList;
