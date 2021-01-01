@@ -10,7 +10,7 @@ Clone the app from the GitHub repo and run the following command from inside the
 
 ## Running the app
 
-Executing the following command will run the app in a development server bu default on port 3000
+Executing the following command will run the app in a development server by default on port 3000
 
 ## `npm start`
 
