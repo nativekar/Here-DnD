@@ -25,7 +25,6 @@ const Dashboard = () => {
       });
     });
     Promise.all(promises).then((results) => {
-      console.log(results);
       results.forEach((res, index) => {
         const address =
           res?.Response?.View[0]?.Result[0]?.Location?.Address?.Label;
@@ -41,7 +40,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <FileUpload handleDrop={handleDrop} />
-      <LocationsList locations={locations} />
+      {locations?.length > 0 && <LocationsList locations={locations} />}
     </div>
   );
 };
